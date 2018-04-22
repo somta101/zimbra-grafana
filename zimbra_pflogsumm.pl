@@ -960,8 +960,8 @@ printf "zimbra-stats recipients=%d%s\n", adj_int_units($recipUserCnt);
 printf "zimbra-stats recipient_hosts_domains=%d%s\n", adj_int_units($recipDomCnt);
 
 if(defined($opts{'smtpdStats'})) {
-printf "zimbra-stats connections=%d%s\n", adj_int_units($smtpdConnCnt);
-printf "zimbra-stats hosts_domains=%d%s\n", adj_int_units(int(keys %smtpdPerDom));
+    printf "zimbra-stats connections=%d%s\n", adj_int_units($smtpdConnCnt);
+    printf "zimbra-stats hosts_domains=%d%s\n", adj_int_units(int(keys %smtpdPerDom));
 }
 
 
