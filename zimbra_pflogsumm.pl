@@ -453,7 +453,7 @@ my (
     $dateStr, $dateStrRFC3339,
     %panics, %fatals, %warnings, %masterMsgs,
     %msgSizes,
-    %d%seferred, %bounced,
+    %deferred, %bounced,
     %noMsgSize, %msgDetail,
     $msgsRcvd, $msgsDlvrd, $sizeRcvd, $sizeDlvrd,
     $msgMonStr, $msgMon, $msgDay, $msgTimeStr, $msgHr, $msgMin, $msgSec,
@@ -461,7 +461,7 @@ my (
     $revMsgDateStr, $dayCnt, %msgsPerDay,
     %rejects, $msgsRjctd,
     %warns, $msgsWrnd,
-    %d%siscards, $msgsDscrdd,
+    %discards, $msgsDscrdd,
     %holds, $msgsHld,
     %rcvdMsg, $msgsFwdd, $msgsBncd,
     $msgsDfrdCnt, $msgsDfrd, %msgDfrdFlgs,
@@ -658,7 +658,7 @@ while(<>) {
     # same month-day in successive months :-)
     unless($msgDay == $lastMsgDay) {
 	$lastMsgDay = $msgDay;
-	$revMsgDateStr = sprintf "%d%s%02d%02d", $msgYr, $msgMon, $msgDay;
+	$revMsgDateStr = sprintf "%d%02d%02d", $msgYr, $msgMon, $msgDay;
 	++$dayCnt;
 	if(defined($opts{'zeroFill'})) {
 	    ${$msgsPerDay{$revMsgDateStr}}[4] = 0;
@@ -710,7 +710,7 @@ while(<>) {
 	proc_smtpd_reject($logRmdr, \%holds, \$msgsHld, \$rejPerHr[$msgHr],
 			  \${$msgsPerDay{$revMsgDateStr}}[4]);
     } elsif($qid eq 'discard') {
-	proc_smtpd_reject($logRmdr, \%d%siscards, \$msgsDscrdd, \$rejPerHr[$msgHr],
+	proc_smtpd_reject($logRmdr, \%discards, \$msgsDscrdd, \$rejPerHr[$msgHr],
 			  \${$msgsPerDay{$revMsgDateStr}}[4]);
     } elsif($cmd eq 'master') {
 	++$masterMsgs{(split(/^.*master.*: /, $logRmdr))[1]};
@@ -739,7 +739,7 @@ while(<>) {
 				  \$rejPerHr[$msgHr],
 				  \${$msgsPerDay{$revMsgDateStr}}[4]);
 	    } elsif($rejSubTyp eq 'discard') {
-		proc_smtpd_reject($logRmdr, \%d%siscards, \$msgsDscrdd,
+		proc_smtpd_reject($logRmdr, \%discards, \$msgsDscrdd,
 				  \$rejPerHr[$msgHr],
 				  \${$msgsPerDay{$revMsgDateStr}}[4]);
 	    }
